@@ -1,0 +1,132 @@
+
+
+--------------------------------------------
+
+                ARBORESCENCE
+
+--------------------------------------------
+
+    app/    : configuration de notre application (infos de connexion BDD)
+
+    src/    : code PHP et HTML spécifique à notre APP (notre code)
+
+    vendor/ : Coeur / code général de l'app (peut s'appeler core dans un framework)
+
+    web/    : Le répertoire web racine(index.php, img/, photo/, js/ css/ et tout autre ressource FRONT)
+
+
+
+ --------------------------------------------
+
+              Nature des fichiers
+
+ --------------------------------------------
+ app/
+    Config/
+        parameters.php : contient toutes les infos de connexion BDD et éventuellement d'autres paramètres
+
+    Config.php : contient une classe dont l'objectif est de récupérer les infos de connexion et de les servir à notre
+    futur PDO Manager qui fera la connexion à POO.
+
+
+vendors/
+    autoload.php : inclu les bons fichiers au bon moment (des instanciations) et évite de faire de nombreux require
+    ATTENTION certains fichier seront dans vendors et d'autre dans src il devra savoir les distinguer
+
+
+src/
+    Entity/
+        Produit.php - Membre.php - Commande.php
+        Ces classes contiennent toutes les propriétés des entités de notre application (et les getter et les setter).
+        On les appelle les POPO (Plain Old PHP Object)
+        POO --> classes qui nous permettent de construire des objets pour chaque entité de notre site.
+
+web/
+    index.php : clé d'entrée de notre application. C'est à partir de là que le site se déploie. Dans notre application
+    c'est ici que l'on créé la session, que nous faisos le require de l'autoload et que nous instancierons la classe
+    Application (interupteur). (Symfony app.php ou app_dev.php)
+
+vendor/
+    Manager/
+        PDOManager : Cette classe représente la connexion à la BDD. Elle contient et nous retourne notre objet PDO
+        grâce auquel nous pourrons effectuer des requêtes.
+        Cette classe est un Singleton, cela signifie qu'il ne peut y avoir qu'un seul objet issu de cette classe.
+
+Model/
+    Model.php : un modèle centralise tout ce qui touche à la BDD.
+    Patron de tous les modèles
+    Pas de requêtes SQL en dehors de l'un de nos modèles.
+    Toutes les requetes generiques communes à tous nos modèles
+
+src/
+    Model/
+        ProduitModel.php
+        Ce fichier contiendra toutes les fonctions (requete) liées à l'entité Produit (table produit) et demande
+        à Model.php d'executer des requêtes. Lorqu'une entité a besoin d'une requête spécifique qui ne peut être
+        générique dans Model.php, on la code ici (jointure par exemple).
+
+vendor/
+    Controller/
+        Controller.php : ce fichier est le contrôleur général de l'application. Il a deux missions :
+                1. Récupérer le bon Model en fonction de l'entité dans laquelle nous sommes
+                2. Afficher la bonne vue en lui transmettant les infos nécessaires
+
+src/
+    Controller/
+    ProduitController.php : cette classe hérite de controller et récupère le model correspondant par son intermédiaire
+    et il permet de déclencher toutes les actions spécifiques à l'entité Produit.
+
+View/
+    Produit/
+        Boutique.php : Tout le code HTML de la page boutique :
+            1.retirer tous les traitements PHP
+            2. remettre le contenu des inc header et footer
+
+web/
+    coller toutes les ressources CSS JS img photo
+
+src/
+    View/
+        layout.html : le layout représente la structure d'une page de notre site (Header/Nav/footer). IL peut y avoir
+        plusieurs Layout si nécessaire(par exemple pour les membres clients ou les membres admin)
+
+web/
+    .htaccess :
+        1.text.txt
+        2.ouverture et édition sur l'éditeur
+        3.enregistrer sous .htaccess
+        Donne des ordres au server que toutes les liens renvoient vers index.php
+        De fait le lien : www.monsite.com/produit/afficheAll sera www.monsite/produit/afficheAll
+
+vendor/
+    Manager/
+        Application.php :
+        Ce fichier lance notre application, c'est notre interrupteur. Cette class a pour mission de récupérer les
+        données dans l'URL, le controller, l'action et l'argument et d'instancier le bon controller,
+        lancer la bonne méthode et y mettre l'argument.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

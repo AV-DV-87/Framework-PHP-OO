@@ -19,19 +19,19 @@
             </div>
 
             <!--si clique sur une catégorie on affiche le row avec les produits-->
-            <div class="d-flex flex-row justify-content-between">
+            <div class="row d-flex justify-content-between">
             <?php foreach ($produits as $produit) : ?>
-
-                <div class="card text-center" style="width: 18rem;">
-                    <img class="card-img-top" src="<?='photo/' . $produit->getPhoto() ?>" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"> <?= $produit->getTitre() ?></h5>
-                        <p class="card-text"><?= $produit->getDescription() ?></p>
-                        <a href="#" class="btn btn-primary">Acheter</a>
-                        <a href="" class="btn btn-primary">Détails</a>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="card text-center">
+                        <img class="card-img-top" src="<?='photo/' . $produit->getPhoto() ?>" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title"> <?= $produit->getTitre() ?></h5>
+                            <p class="card-text"><?= $produit->getDescription() ?></p>
+                            <a href="#" class="btn btn-primary">Acheter</a>
+                            <a href="" class="btn btn-primary">Détails</a>
+                        </div>
                     </div>
                 </div>
-
                 <?php endforeach; ?>
             </div>
         </div><!--/.col-xs-12.col-sm-9-->
